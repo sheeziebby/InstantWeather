@@ -9,12 +9,13 @@
 import UIKit
 import Alamofire
 
-class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UISearchBarDelegate {
     var cities = [String]()
     
     @IBOutlet var cityTextField: UITextField!
     @IBOutlet var weatherTableView: UITableView!
     
+  
     
     
     override func viewDidLoad() {
@@ -22,12 +23,15 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         self.weatherTableView.delegate = self
         self.weatherTableView.dataSource = self
         Weather.sharedInstance.fetchData()
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
     
     @IBAction func searchLocation(_ sender: UIButton) {
         //search for locations weather in textfield.
@@ -46,20 +50,41 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         self.resignFirstResponder()
     }
     
-    //Table View Delegate and Datasource.
+
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        
+        
+    }
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        
+        
+    }
+    
+    //MARK Table View Delegate and Datasource.
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-       let cell = self.weatherTableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        //
+       let cell = self.weatherTableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
+        cell.descriptionBox.text = "\(cities[indexPath.row])\n \(Weather.sharedInstance.weatherDescriptions[indexPath.row])]"
+        cell.iconImageView.image = UIImage(named: "0\(indexPath.row)d")
         
+        
+        //
+        print(Weather.sharedInstance.weatherDescriptions)
+        
+        
+
         
         
         return cell;
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5;
+        return cities.count //counts recent cities array
     }
+    
+    
 
 
 }

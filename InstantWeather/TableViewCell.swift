@@ -9,14 +9,16 @@
 import UIKit
 
 class TableViewCell: UITableViewCell {
+
+    @IBOutlet var iconImageView: UIImageView!
     
-//    var weatherIcon : UIImage
-//    var weatherDescription : String = "Sunny"
+
+    
+    @IBOutlet var descriptionBox: UITextView!
     
     required init?(coder aDecoder: NSCoder) {
-//        self.weatherIcon = weatherIcon
-//        self.weatherDescription = weatherDescription
         super.init(coder: aDecoder)
+
     }
 
     override func awakeFromNib() {
